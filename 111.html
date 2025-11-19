@@ -1,0 +1,175 @@
+<head>
+     <title>朋友祝福代码</title>
+     <style>
+         /* 新增：全局样式重置，避免手机默认边距影响 */
+         * {
+             margin: 0;
+             padding: 0;
+             box-sizing: border-box;
+         }
+         body {
+             overflow: hidden; /* 隐藏滚动条，防止页面滚动 */
+             width: 100vw; /* 占满屏幕宽度 */
+             height: 100vh; /* 占满屏幕高度 */
+         }
+         .blessing, .emoji-box {
+             position: fixed;
+             padding: 10px;
+             border-radius: 5px;
+             font-family: "微软雅黑", sans-serif;
+             font-weight: 600;
+             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+             z-index: 9999;
+             opacity: 0;
+             transform: scale(0.5);
+             transition: opacity 0.5s, transform 0.5s;
+             width: 90px; /* 宽+10px后尺寸 */
+             height: 50px; /* 高+10px后尺寸 */
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             text-align: center;
+         }
+         .blessing {
+             font-size: 14px; /* 保持原字体大小 */
+         }
+         .emoji-box {
+             font-size: 24px; /* emoji放大显示，适配文本框尺寸 */
+         }
+     </style>
+ </head>
+ <body>
+ <script>
+         // 朋友祝福文案列表
+         const blessings = [
+             "我站在你这边", "别淋雨", "穿舒服鞋，不累脚",
+             "难题一加，你一定能解", "多喝温水", "早点休息",
+             "每天保持微笑", "今天也要开心吖", "别苛责自己",
+             "没做好，下次再试", "多吃水果", "付出有好结果",
+             "保持好心情", "多穿衣服", "按时吃饭",
+             "路过风景能心动", "抬头见好天气", "别硬撑",
+             "你比想象中棒", "愿你常感温暖", "等待不被辜负",
+             "今天也要加油哦", "别急", "愿你天天开心",
+             "别熬夜", "累了也没事", "愿你所有烦恼都消失",
+             "今天过的开心嘛", "早安，开启美好一天", "散步吧",
+             "吃饭有幸福", "和喜欢的人聊聊", "别多想",
+             "照顾好自己", "慢慢做", "梦想成真",
+             "别焦虑", "事情会慢慢解决的", "睡个好觉",
+             "水果洗干净再吃", "开启美好一天", "热爱生活不减少",
+             "空调别对吹", "愿你遇小幸运", "发现生活小美好"
+         ];
+         // 鲜艳多变的颜色组合（高饱和度背景+对比文字色，确保可读性）
+         const colorPairs = [
+             { bg: "#FF3366", text: "#FFFFFF" }, // 亮粉-白
+             { bg: "#FF9900", text: "#FFFFFF" }, // 亮橙-白
+             { bg: "#FFDD00", text: "#000000" }, // 亮黄-黑
+             { bg: "#33CC33", text: "#FFFFFF" }, // 亮绿-白
+             { bg: "#3399FF", text: "#FFFFFF" }, // 亮蓝-白
+             { bg: "#9933FF", text: "#FFFFFF" }, // 亮紫-白
+             { bg: "#FF33CC", text: "#FFFFFF" }, // 亮玫红-白
+             { bg: "#00CCFF", text: "#000000" }, // 亮青-黑
+             { bg: "#FF6633", text: "#FFFFFF" }, // 亮橙红-白
+             { bg: "#CCFF33", text: "#000000" }, // 亮浅绿-黑
+             { bg: "#33FFCC", text: "#000000" }, // 亮薄荷绿-黑
+             { bg: "#FF33FF", text: "#FFFFFF" }, // 亮粉紫-白
+             { bg: "#6633FF", text: "#FFFFFF" }, // 亮深紫-白
+             { bg: "#FF0066", text: "#FFFFFF" }, // 亮桃红-白
+             { bg: "#00FF99", text: "#000000" }, // 亮翠绿-黑
+             { bg: "#FF0000", text: "#FFFFFF" }, // 大红-白
+             { bg: "#0000FF", text: "#FFFFFF" }, // 纯蓝-白
+             { bg: "#9900FF", text: "#FFFFFF" }, // 深紫-白
+             { bg: "#00FF00", text: "#000000" }, // 纯绿-黑
+             { bg: "#FFCC00", text: "#000000" }  // 浅橙-黑
+         ];
+         // 可爱emoji列表（与祝福主题适配）
+         const emojis = ["😊", "🥰", "🎉", "✨", "💖", "🌟", "🥳", "💐", "🌸", "💞", "💓", "💗", "🥺", "😘", "🤗", "🙌", "👏", "💪", "🌈", "☀️", "🌙", "💫", "⭐", "💯", "🎊"];
+         // 创建文本框（祝福）
+         function createBlessing(x, y, colorPair) {
+             const blessingDiv = document.createElement("div");
+             blessingDiv.className = "blessing";
+             const blessing = blessings[Math.floor(Math.random() * blessings.length)];
+             
+             blessingDiv.textContent = blessing;
+             blessingDiv.style.left = `${x}px`;
+             blessingDiv.style.top = `${y}px`;
+             blessingDiv.style.backgroundColor = colorPair.bg;
+             blessingDiv.style.color = colorPair.text;
+             
+             document.body.appendChild(blessingDiv);
+             setTimeout(() => {
+                 blessingDiv.style.opacity = "1";
+                 blessingDiv.style.transform = "scale(1)";
+             }, 10);
+             setTimeout(() => {
+                 blessingDiv.style.opacity = "0";
+                 blessingDiv.style.transform = "scale(0.5)";
+                 setTimeout(() => {
+                     if (document.body.contains(blessingDiv)) {
+                         document.body.removeChild(blessingDiv);
+                     }
+                 }, 500);
+             }, 2000);
+         }
+         // 创建emoji框（与文本框样式、动画一致）
+         function createEmoji(x, y, colorPair) {
+             const emojiDiv = document.createElement("div");
+             emojiDiv.className = "emoji-box";
+             const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+             
+             emojiDiv.textContent = emoji;
+             emojiDiv.style.left = `${x}px`;
+             emojiDiv.style.top = `${y}px`;
+             emojiDiv.style.backgroundColor = colorPair.bg;
+             emojiDiv.style.color = colorPair.text  
+			 document.body.appendChild(emojiDiv);
+             setTimeout(() => {
+                 emojiDiv.style.opacity = "1";
+                 emojiDiv.style.transform = "scale(1)";
+             }, 10);
+             setTimeout(() => {
+                 emojiDiv.style.opacity = "0";
+                 emojiDiv.style.transform = "scale(0.5)";
+                 setTimeout(() => {
+                     if (document.body.contains(emojiDiv)) {
+                         document.body.removeChild(emojiDiv);
+                     }
+                 }, 500);
+             }, 2000);
+         }
+         function createMultipleElements() {
+             const totalCount = 25; // 每秒总共25个元素（文本框+emoji）
+             const emojiCount = 8; // 其中emoji数量（可调整比例）
+             const blessingCount = totalCount - emojiCount; // 祝福文本框数量
+             
+             // 文本框宽高（已+10px）
+             const textBoxWidth = 90;
+             const textBoxHeight = 50;
+             
+             // 创建祝福文本框
+             for (let i = 0; i < blessingCount; i++) {
+                 setTimeout(() => {
+                     const x = Math.random() * (window.innerWidth - textBoxWidth - 20) + 10;
+                     const y = Math.random() * (window.innerHeight - textBoxHeight - 20) + 10;
+                     const colorPair = colorPairs[Math.floor(Math.random() * colorPairs.length)];
+                     createBlessing(x, y, colorPair);
+                 }, Math.random() * 1000);
+             }
+             
+             // 创建emoji框（与文本框交错出现）
+             for (let i = 0; i < emojiCount; i++) {
+                 setTimeout(() => {
+                     const x = Math.random() * (window.innerWidth - textBoxWidth - 20) + 10;
+                     const y = Math.random() * (window.innerHeight - textBoxHeight - 20) + 10;
+                     const colorPair = colorPairs[Math.floor(Math.random() * colorPairs.length)];
+                     createEmoji(x, y, colorPair);
+                 }, Math.random() * 1000);
+             }
+         }
+         // 延迟1秒开始，之后每秒执行一次
+         setTimeout(() => {
+             createMultipleElements();
+             setInterval(createMultipleElements, 1000);
+         }, 1000);
+     </script>
+	 </body>
+ </html>
